@@ -51,7 +51,18 @@
 		gpio_jtag_en {
 			gpios = <&gpio5 1 GPIO_ACTIVE_HIGH>;
 		};
+	};
+
+	/* Test PPS-GEN */
+	pps-gen {
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_pps>;
+		compatible = "pps-gen-gpio";
+		pps-gen-gpio = <&gpio1 27 GPIO_ACTIVE_HIGH>;
+		
+		/*assert-falling-edge;*/
 	};	
+		
 };
 
 &i2c1 {
@@ -143,6 +154,12 @@
 			MX6UL_PAD_GPIO1_IO04__GPIO1_IO04	0x1b0b1
 		>;
 	};
+	
+	pinctrl_pps: gpio_ppsgrp {
+		fsl,pins = <
+			MX6UL_PAD_UART3_RTS_B__GPIO1_IO27	0x1b0b1
+		>;
+	};
 	/* Test UART for 485 and Zigbee*/
 	/*
 	pinctrl_uart5: uart5grp {
@@ -174,6 +191,7 @@
 	status = "okay";
 };
 */
+
 
 &lcdif {
 	pinctrl-names = "default";

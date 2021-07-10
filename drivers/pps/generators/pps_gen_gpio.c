@@ -132,8 +132,9 @@ done:
 			(3 * hrtimer_avg_latency + hrtimer_latency) / 4;
 
 	/* Update the hrtimer expire time. */
+	/* Aim the next timer to the real TS, so we can handle time jumps to the future */
 	hrtimer_set_expires(timer,
-			    ktime_set(ts_expire_req.tv_sec + 1,
+			    ktime_set(ts_expire_real.tv_sec + 1,
 				      time_gpio_assert_ns
 				      - hrtimer_avg_latency
 				      - SAFETY_INTERVAL_NS));
