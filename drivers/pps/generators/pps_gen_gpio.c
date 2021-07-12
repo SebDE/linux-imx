@@ -31,7 +31,7 @@ MODULE_LICENSE("GPL");
 
 #define GPIO_PULSE_WIDTH_DEF_NS (30 * NSEC_PER_USEC)    /* 30us */
 #define GPIO_PULSE_WIDTH_MAX_NS (100 * NSEC_PER_USEC)   /* 100us */
-#define SAFETY_INTERVAL_NS      (10 * NSEC_PER_USEC)    /* 10us */
+#define SAFETY_INTERVAL_NS      (30 * NSEC_PER_USEC)    /* 30us */
 
 enum pps_gen_gpio_level {
 	PPS_GPIO_LOW = 0,
@@ -84,7 +84,7 @@ static enum hrtimer_restart hrtimer_callback(struct hrtimer *timer)
 	if (ts_expire_req.tv_sec != ts_expire_real.tv_sec
 	    || ts_expire_real.tv_nsec > time_gpio_assert_ns) {
 		local_irq_restore(irq_flags);
-		pr_err("We are late this time [%ld.%09ld]\n",
+		pr_info("We are late this time [%ld.%09ld]\n",
 		       ts_expire_real.tv_sec, ts_expire_real.tv_nsec);
 		goto done;
 	}
