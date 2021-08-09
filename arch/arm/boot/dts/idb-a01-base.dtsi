@@ -14,18 +14,12 @@
 	leds {
 		compatible = "gpio-leds";
 		pinctrl-names = "default";
-		pinctrl-0 = <&pinctrl_gpio_leds &pinctrl_gpio_status_led>;
-
-		gpled2 {
-			label = "watchdog";
-			gpios = <&gpio1 25 GPIO_ACTIVE_HIGH>;
-			linux,default-trigger = "heartbeat";
-		};
+		pinctrl-0 = <&pinctrl_gpio_status_led>;
 		
-		gpled3 {
+		gpled1 {
 			label = "cpuled";
 			gpios = <&gpio5 9 GPIO_ACTIVE_LOW>;
-			default-state = "on";
+			linux,default-trigger = "heartbeat";
 		};
 	};
 	
@@ -69,6 +63,17 @@
 		
 		/*assert-falling-edge;*/
 	};	
+	
+	watchdog: watchdog {
+		compatible = "linux,wdt-gpio";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_gpio_wdt>;	
+		gpios = <&gpio1 25 GPIO_ACTIVE_HIGH>;
+		hw_algo = "toggle";
+		hw_margin_ms = <1500>;
+		always-running;
+		status = "okay";
+	};	
 		
 };
 
@@ -96,9 +101,9 @@
 };
 
 &iomuxc {
-	pinctrl_gpio_leds: gpio_ledsgrp {
+	pinctrl_gpio_wdt: gpio_wdtgrp {
 		fsl,pins = <
-			MX6UL_PAD_UART3_RX_DATA__GPIO1_IO25	0x1b0b0	/* GPLED2 */
+			MX6UL_PAD_UART3_RX_DATA__GPIO1_IO25	0x1b0b0	 /* GPLED2 */
 		>;
 	};
 
