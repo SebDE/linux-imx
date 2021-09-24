@@ -102,6 +102,8 @@
 #define CTRL_VSYNC_MODE			(1 << 18)
 #define CTRL_DOTCLK_MODE		(1 << 17)
 #define CTRL_DATA_SELECT		(1 << 16)
+#define CTRL_INPUT_DATA_SWIZZLE_BE (0x1 << 14)
+#define CTRL_INPUT_DATA_SWIZZLE_LE (0x0 << 14)
 #define CTRL_SET_BUS_WIDTH(x)		(((x) & 0x3) << 10)
 #define CTRL_GET_BUS_WIDTH(x)		(((x) >> 10) & 0x3)
 #define CTRL_SET_WORD_LENGTH(x)		(((x) & 0x3) << 8)
@@ -501,7 +503,7 @@ static const struct fb_bitfield def_rgb666[] = {
 
 static const struct fb_bitfield def_rgb888[] = {
 	[RED] = {
-		.offset = 16,
+		.offset = 0,
 		.length = 8,
 	},
 	[GREEN] = {
@@ -509,7 +511,7 @@ static const struct fb_bitfield def_rgb888[] = {
 		.length = 8,
 	},
 	[BLUE] = {
-		.offset = 0,
+		.offset = 16,
 		.length = 8,
 	},
 	[TRANSP] = {	/* no support for transparency */
@@ -906,6 +908,7 @@ static int mxsfb_set_par(struct fb_info *fb_info)
 			break;
 		case STMLCDIF_24BIT:
 			/* real 24 bit */
+			ctrl |= CTRL_INPUT_DATA_SWIZZLE_BE;
 			break;
 		}
 		/* do not use packed pixels = one pixel per word instead */
