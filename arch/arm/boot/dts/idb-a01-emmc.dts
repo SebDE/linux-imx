@@ -8,8 +8,10 @@
 #include "imx6ul-imx6ull-var-som-emmc.dtsi"
 
 #include "idb-a01-base.dtsi"
+//enable jtag
+#include "idb-a01-jtag.dtsi"
 
 / {
-	model = "VAR-SOM-6UL with i.MX6ULL, eMMC on IDB-A01";
+	model = "VAR-SOM-6UL with i.MX6ULL, eMMC, JTAG enabled on IDB-A01";
 	compatible = "variscite,imx6ul-var-som", "fsl,imx6ull";
 };

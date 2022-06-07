@@ -8,12 +8,10 @@
 #include "imx6ul-imx6ull-var-som-emmc.dtsi"
 
 #include "idb-a01-base.dtsi"
-//enable jtag
-#include "idb-a01-jtag.dtsi"
-//enable sd-card
-#include "imx6ul-imx6ull-var-som-concerto-board-sd-card.dtsi"
+//enable wifi
+#include "idb-a01-wifi.dtsi"
 
 / {
-	model = "VAR-SOM-6UL with i.MX6ULL, eMMC & SD card support, JTAG enabled on IDB-A01";
+	model = "VAR-SOM-6UL with i.MX6ULL, eMMC, WiFi enabled on IDB-A01";
 	compatible = "variscite,imx6ul-var-som", "fsl,imx6ull";
 };
