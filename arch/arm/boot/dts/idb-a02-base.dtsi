@@ -61,7 +61,7 @@
 
 	/* RTC module */
 	rtc@32 {
-		compatible = "epson,rx8111;
+		compatible = "epson,rx8111";
 		reg = <0x32>;
 	};
 
