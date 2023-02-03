@@ -6,9 +6,7 @@
 #include <linux/rtc.h>
 #include <linux/interrupt.h>
 #include <linux/gpio.h>
-/* Bug fixed in 2021/APR/6 */
-/* Insert and Defined ALARM_AE *
-/* Basic time and calendar register */
+
 #define RX8111_SEC			0x10
 #define RX8111_MIN     			0x11
 #define RX8111_HOUR    			0x12
@@ -193,9 +191,12 @@ static int rx8111_set_time(struct device *dev, struct rtc_time *dt)
 	u8 date[7];
 	int ctrl;
 	int ret;
-
-	if ((dt->tm_year < 100) || (dt->tm_year > 199))
+	//printk(KERN_INFO "rtc-RX8111: rx8111_set_time called\n");
+	if ((dt->tm_year < 100) || (dt->tm_year > 199)) {
+		//printk(KERN_INFO "rtc-RX8111: (dt->tm_year < 100) || (dt->tm_year > 199)\n");
+		//printk(KERN_INFO "rtc-RX8111: dt->tm_year=%i \n", dt->tm_year);
 		return -EINVAL;
+	}
 
 	/* set STOP bit to "1" to prevent imter update in time setting. */
 	ctrl = i2c_smbus_read_byte_data(rx8111->client, RX8111_CTRLREG);		
@@ -256,9 +257,10 @@ static int rx8111_init_client(struct i2c_client *client)
 		return err;
 	
 	//Set the present time
-	err = rx8111_set_time(&client->dev,&dt);	
-	if (err <0)
-		return err;
+	//Fix: Why? We didn't have any time to set ...
+	//err = rx8111_set_time(&client->dev,&dt);	
+	//if (err <0)
+	//	return err;
 
 	//Setting the Alarm fucntion	AIE = 0
 	ctrl = i2c_smbus_read_byte_data(client, RX8111_CTRLREG);
