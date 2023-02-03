@@ -154,7 +154,7 @@
 			MX6UL_PAD_UART5_RX_DATA__ECSPI2_MISO	0x100b1
 			MX6UL_PAD_UART5_TX_DATA__ECSPI2_MOSI	0x100b1
 			MX6UL_PAD_UART4_TX_DATA__ECSPI2_SCLK	0x100b1
-			MX6UL_PAD_UART4_RX_DATA__GPIO1_IO29		0x100b1
+			MX6UL_PAD_UART4_RX_DATA__GPIO1_IO29	0x100b1
 		>;
 	};
 	
@@ -233,9 +233,9 @@
 	pinctrl-0 = <&pinctrl_ecspi2_1>;
 	status = "okay";
 
-	chip1:spidev@0 {
+	spidev@0 {
 		compatible = "spidev";
-		spi-max-frequency = <1000000>;
+		spi-max-frequency = <12000000>;
 		reg = <0>;
 	};
 };
